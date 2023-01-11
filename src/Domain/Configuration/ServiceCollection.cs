@@ -10,11 +10,9 @@
 namespace ArbitrageFinder.Domain.Configuration
 {
     using ArbitrageFinder.Domain.AggregateModels.Bet.Builder.BetBuilder;
-    using ArbitrageFinder.Domain.AggregateModels.Bookmaker.Builder.BookmakerBuilder;
     using ArbitrageFinder.Domain.AggregateModels.Game.Builder.CombinationBuilder;
     using ArbitrageFinder.Domain.AggregateModels.Game.Builder.GameBuilder;
     using ArbitrageFinder.Domain.AggregateModels.Game.Builder.OddBuilder;
-    using ArbitrageFinder.Domain.AggregateModels.Game.Builder.TeamBuilder;
     using ArbitrageFinder.Domain.Services.Bet.ArbitrageCalculatorService;
     using ArbitrageFinder.Domain.Services.Bet.BetService;
     using ArbitrageFinder.Domain.Services.Bet.CombinationService;
@@ -32,13 +30,9 @@ namespace ArbitrageFinder.Domain.Configuration
         /// <param name="services">The services.</param>
         public static void RegisterDomainServices(this IServiceCollection services)
         {
-            services.AddScoped<ITeamBuilder, TeamBuilder>();
-
             services.AddScoped<IOddBuilder, OddBuilder>();
 
             services.AddScoped<ICombinationBuilder, CombinationBuilder>();
-
-            services.AddScoped<IBookmakerBuilder, BookmakerBuilder>();
 
             services.AddScoped<IGameBuilder, GameBuilder>();
 
