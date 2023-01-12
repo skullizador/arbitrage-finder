@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArbitrageFinder.Infrastructure.Migrations
 {
     [DbContext(typeof(ArbitrageFinderDBContext))]
-    [Migration("20221211210939_InitialSetup")]
+    [Migration("20230111220345_InitialSetup")]
     partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,82 +86,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Combination", (string)null);
-                });
-
-            modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Bookmaker.Bookmaker", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("BaseUrl")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Comments")
-                        .HasMaxLength(320)
-                        .HasColumnType("varchar(320)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<DateTime>("ModificationDate")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<Guid>("UUId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UUId")
-                        .IsUnique();
-
-                    b.ToTable("Bookmaker", (string)null);
-                });
-
-            modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Bookmaker.Team", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("BookmakerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("ModificationDate")
-                        .IsConcurrencyToken()
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("UUId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookmakerId");
-
-                    b.HasIndex("UUId")
-                        .IsUnique();
-
-                    b.ToTable("Team", (string)null);
                 });
 
             modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Game.Game", b =>
@@ -310,13 +234,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                     b.Navigation("XOdd");
                 });
 
-            modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Bookmaker.Team", b =>
-                {
-                    b.HasOne("ArbitrageFinder.Domain.AggregateModels.Bookmaker.Bookmaker", null)
-                        .WithMany("Teams")
-                        .HasForeignKey("BookmakerId");
-                });
-
             modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Game.Odd", b =>
                 {
                     b.HasOne("ArbitrageFinder.Domain.AggregateModels.Game.Game", null)
@@ -327,11 +244,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
             modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Bet.Bet", b =>
                 {
                     b.Navigation("Combinations");
-                });
-
-            modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Bookmaker.Bookmaker", b =>
-                {
-                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("ArbitrageFinder.Domain.AggregateModels.Game.Game", b =>

@@ -34,30 +34,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Bookmaker",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    BaseUrl = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Comments = table.Column<string>(type: "varchar(320)", maxLength: 320, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModificationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UUId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookmaker", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Game",
                 columns: table => new
                 {
@@ -106,30 +82,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Team",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    BookmakerId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    ModificationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UUId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Team", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Team_Bookmaker_BookmakerId",
-                        column: x => x.BookmakerId,
-                        principalTable: "Bookmaker",
-                        principalColumn: "Id");
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Odd",
                 columns: table => new
                 {
@@ -163,12 +115,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookmaker_UUId",
-                table: "Bookmaker",
-                column: "UUId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Combination_BetId",
                 table: "Combination",
                 column: "BetId");
@@ -195,17 +141,6 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                 table: "Odd",
                 column: "UUId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Team_BookmakerId",
-                table: "Team",
-                column: "BookmakerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Team_UUId",
-                table: "Team",
-                column: "UUId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -217,16 +152,10 @@ namespace ArbitrageFinder.Infrastructure.Migrations
                 name: "Odd");
 
             migrationBuilder.DropTable(
-                name: "Team");
-
-            migrationBuilder.DropTable(
                 name: "Bet");
 
             migrationBuilder.DropTable(
                 name: "Game");
-
-            migrationBuilder.DropTable(
-                name: "Bookmaker");
         }
     }
 }
