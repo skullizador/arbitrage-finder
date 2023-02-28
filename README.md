@@ -17,12 +17,12 @@
 
 ## Features
 
-* [x] Calculate sure bets by game;
-* [x] Get all sure bets by game;
-* [x] Get sure bets by filter;
-* [x] Get sure bets details;
-* [x] Get game details;
-* [x] Get games by filter;
+* Calculate sure bets by game :heavy_check_mark:
+* Get all sure bets by game :heavy_check_mark:
+* Get sure bets by filter :heavy_check_mark:
+* Get sure bets details :heavy_check_mark:
+* Get game details :heavy_check_mark:
+* Get games by filter :heavy_check_mark:
 
 ## Requirements
 The application can be run locally or in a docker container, the requirements for each setup are listed below.
