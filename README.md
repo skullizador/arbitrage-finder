@@ -20,11 +20,8 @@
 ![Domain](https://github.com/skullizador/arbitrage-finder/blob/main/resources/domain.png)
 
 ## Features
-TODO: Description of features
 
-* Include a list of
-* all the many beautiful
-* web server features
+* [x] Get all sure bets by game;
 
 
 ## Requirements
