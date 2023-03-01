@@ -31,6 +31,8 @@ namespace ArbitrageFinder.Presentation.WebAPI.Mappers
 
             this.CreateMap<CalculateBetOddDto, Odd>();
 
+            this.CreateMap<Odd, OddDetailsDto>();
+
             this.CreateMap<Combination, CombinationDetailsDto>()
                 .ForMember(dest => dest.XOddId, src => src.MapFrom(p => p.XOdd.OddId))
                 .ForMember(dest => dest.V2OddId, src => src.MapFrom(p => p.V2Odd.OddId))
