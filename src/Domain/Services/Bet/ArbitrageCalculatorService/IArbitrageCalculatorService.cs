@@ -11,7 +11,7 @@ namespace ArbitrageFinder.Domain.Services.Bet.ArbitrageCalculatorService
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
+    using ArbitrageFinder.Domain.AggregateModels.Bet;
 
     /// <summary>
     /// <see cref="IArbitrageCalculatorService"/>

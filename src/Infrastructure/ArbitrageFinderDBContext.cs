@@ -136,9 +136,7 @@ namespace ArbitrageFinder.Infrastructure
         /// </remarks>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new OddEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CombinationEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BetEntityTypeConfiguration());
 
             var properties = modelBuilder.Model.GetEntityTypes()
