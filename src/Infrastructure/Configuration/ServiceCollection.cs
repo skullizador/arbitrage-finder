@@ -10,7 +10,6 @@
 namespace ArbitrageFinder.Infrastructure.Configuration
 {
     using ArbitrageFinder.Domain.AggregateModels.Bet.Repository;
-    using ArbitrageFinder.Domain.AggregateModels.Game.Repository;
     using ArbitrageFinder.Infrastructure.Repository;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -26,10 +25,6 @@ namespace ArbitrageFinder.Infrastructure.Configuration
         public static void RegisterInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<ICombinationRepository, CombinationRepository>();
-
-            services.AddScoped<IOddRepository, OddRepository>();
-
-            services.AddScoped<IGameRepository, GameRepository>();
 
             services.AddScoped<IBetRepository, BetRepository>();
         }
