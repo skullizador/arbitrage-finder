@@ -16,7 +16,7 @@ namespace ArbitrageFinder.Presentation.WebAPI.Validation.Bet
     /// <see cref="GetBetByGameDtoValidator"/>
     /// </summary>
     /// <seealso cref="AbstractValidator{GetBetsByGameFilterDto}" />
-    public class GetBetByGameDtoValidator : AbstractValidator<GetBetByGameDto>
+    public class GetBetByGameDtoValidator : AbstractValidator<GetBetByGameIdDto>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GetBetByGameDtoValidator"/> class.
