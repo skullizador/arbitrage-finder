@@ -15,15 +15,13 @@ namespace ArbitrageFinder.Infrastructure.EntityConfiguration
     /// <summary>
     /// <see cref="CombinationEntityTypeConfiguration"/>
     /// </summary>
-    /// <seealso cref="EntityTypeConfiguration{Combination}" />
+    /// <seealso cref="EntityTypeConfiguration{Combination}"/>
     internal class CombinationEntityTypeConfiguration : EntityTypeConfiguration<Combination>
     {
         /// <summary>
         /// Gets the name of the table.
         /// </summary>
-        /// <value>
-        /// The name of the table.
-        /// </value>
+        /// <value>The name of the table.</value>
         protected override string TableName => "Combination";
 
         /// <summary>
@@ -42,6 +40,12 @@ namespace ArbitrageFinder.Infrastructure.EntityConfiguration
 
                 b.Property(p => p.BookmakerId)
                     .IsRequired();
+
+                b.Property(p => p.RealOdd)
+                    .IsRequired();
+
+                b.Property(p => p.Type)
+                    .IsRequired();
             });
 
             builder.OwnsOne(p => p.XOdd, b =>
@@ -51,6 +55,12 @@ namespace ArbitrageFinder.Infrastructure.EntityConfiguration
 
                 b.Property(p => p.BookmakerId)
                     .IsRequired();
+
+                b.Property(p => p.RealOdd)
+                    .IsRequired();
+
+                b.Property(p => p.Type)
+                    .IsRequired();
             });
 
             builder.OwnsOne(p => p.V2Odd, b =>
@@ -59,6 +69,12 @@ namespace ArbitrageFinder.Infrastructure.EntityConfiguration
                     .IsRequired();
 
                 b.Property(p => p.BookmakerId)
+                    .IsRequired();
+
+                b.Property(p => p.RealOdd)
+                    .IsRequired();
+
+                b.Property(p => p.Type)
                     .IsRequired();
             });
         }
