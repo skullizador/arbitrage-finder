@@ -10,9 +10,8 @@
 namespace ArbitrageFinder.Presentation.WebAPI.Mappers
 {
     using ArbitrageFinder.Domain.AggregateModels.Bet;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
+    using ArbitrageFinder.Presentation.WebAPI.Dtos.Input.Bet;
     using ArbitrageFinder.Presentation.WebAPI.Dtos.Output.Bet;
-    using ArbitrageFinder.Presentation.WebAPI.Dtos.Output.Game;
     using AutoMapper;
 
     /// <summary>
@@ -30,16 +29,12 @@ namespace ArbitrageFinder.Presentation.WebAPI.Mappers
 
             this.CreateMap<Bet, BetDetailsDto>();
 
+            this.CreateMap<CalculateBetOddDto, Odd>();
+
             this.CreateMap<Combination, CombinationDetailsDto>()
                 .ForMember(dest => dest.XOddId, src => src.MapFrom(p => p.XOdd.OddId))
                 .ForMember(dest => dest.V2OddId, src => src.MapFrom(p => p.V2Odd.OddId))
                 .ForMember(dest => dest.V1OddId, src => src.MapFrom(p => p.V1Odd.OddId));
-
-            this.CreateMap<Game, GameDto>();
-
-            this.CreateMap<Game, GameDetailsDto>();
-
-            this.CreateMap<Game, OddDetailsDto>();
         }
     }
 }

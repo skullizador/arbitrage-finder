@@ -125,7 +125,7 @@ namespace ArbitrageFinder.Presentation.WebAPI.Controllers
         [Route("Game/{GameId}/Bet")]
         [ProducesResponseType(typeof(BetDetailsDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ErrorMessage), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetByGameIdAsync([FromRoute] GetBetByGameDto filter, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetByGameIdAsync([FromRoute] GetBetByGameIdDto filter, CancellationToken cancellationToken)
         {
             Bet bet = await this.mediator.Send(new GetBetByGameIdQuery
             {
