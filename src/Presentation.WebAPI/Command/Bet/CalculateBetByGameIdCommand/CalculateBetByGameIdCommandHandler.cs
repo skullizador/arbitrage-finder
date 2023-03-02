@@ -15,17 +15,15 @@ namespace ArbitrageFinder.Presentation.WebAPI.Command.Bet.CalculateBetByGameIdCo
     using ArbitrageFinder.Domain.AggregateModels.Bet.Builder.BetBuilder;
     using ArbitrageFinder.Domain.AggregateModels.Bet.Enum;
     using ArbitrageFinder.Domain.AggregateModels.Bet.Repository;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
-    using ArbitrageFinder.Domain.AggregateModels.Game.Repository;
-    using ArbitrageFinder.Domain.Exceptions;
     using ArbitrageFinder.Domain.Services.Bet.BetService;
     using ArbitrageFinder.Domain.Services.Bet.CombinationService;
+    using AutoMapper;
     using MediatR;
 
     /// <summary>
     /// <see cref="CalculateBetByGameIdCommandHandler"/>
     /// </summary>
-    /// <seealso cref="IRequestHandler{CalculateBetByGameIdCommand, Bet}" />
+    /// <seealso cref="IRequestHandler{CalculateBetByGameIdCommand, Bet}"/>
     public class CalculateBetByGameIdCommandHandler : IRequestHandler<CalculateBetByGameIdCommand, Bet>
     {
         /// <summary>
@@ -49,9 +47,9 @@ namespace ArbitrageFinder.Presentation.WebAPI.Command.Bet.CalculateBetByGameIdCo
         private readonly ICombinationService combinationService;
 
         /// <summary>
-        /// The game repository
+        /// The mapper
         /// </summary>
-        private readonly IGameRepository gameRepository;
+        private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CalculateBetByGameIdCommandHandler"/> class.
@@ -60,19 +58,19 @@ namespace ArbitrageFinder.Presentation.WebAPI.Command.Bet.CalculateBetByGameIdCo
         /// <param name="betRepository">The bet repository.</param>
         /// <param name="betService">The bet service.</param>
         /// <param name="combinationService">The combination service.</param>
-        /// <param name="gameRepository">The game repository.</param>
+        /// <param name="mapper">The mapper.</param>
         public CalculateBetByGameIdCommandHandler(
             IBetBuilder betBuilder,
             IBetRepository betRepository,
             IBetService betService,
             ICombinationService combinationService,
-            IGameRepository gameRepository)
+            IMapper mapper)
         {
             this.betBuilder = betBuilder;
             this.betService = betService;
             this.betRepository = betRepository;
             this.combinationService = combinationService;
-            this.gameRepository = gameRepository;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -80,25 +78,17 @@ namespace ArbitrageFinder.Presentation.WebAPI.Command.Bet.CalculateBetByGameIdCo
         /// </summary>
         /// <param name="request">The request</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>
-        /// Response from the request
-        /// </returns>
-        /// <exception cref="NotFoundException">The bet with id {request.GameId} wasn't found.</exception>
+        /// <returns>Response from the request</returns>
         public async Task<Bet> Handle(CalculateBetByGameIdCommand request, CancellationToken cancellationToken)
         {
-            Game game = await this.gameRepository.GetAsync(request.GameId, cancellationToken);
+            List<Odd> odds = this.mapper.Map<List<Odd>>(request.Odds);
 
-            if (game is null)
-            {
-                throw new NotFoundException($"The bet with id {request.GameId} wasn't found.");
-            }
+            BetType betType = await this.betService.GetBetTypeAsync(odds, cancellationToken);
 
-            BetType betType = await this.betService.GetBetTypeAsync(game, cancellationToken);
-
-            IEnumerable<Combination> combinations = await this.combinationService.CalculateCombinationsAsync(game, cancellationToken);
+            IEnumerable<Combination> combinations = await this.combinationService.CalculateCombinationsAsync(odds, cancellationToken);
 
             Bet bet = this.betBuilder
-                .NewBet(game.UUId, betType)
+                .NewBet(request.GameId, betType)
                 .AddCombinations(combinations.ToList())
                 .Build();
 

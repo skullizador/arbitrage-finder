@@ -11,12 +11,12 @@ namespace ArbitrageFinder.Domain.Services.Bet.ArbitrageCalculatorService
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
+    using ArbitrageFinder.Domain.AggregateModels.Bet;
 
     /// <summary>
     /// <see cref="ArbitrageCalculatorService"/>
     /// </summary>
-    /// <seealso cref="IArbitrageCalculatorService" />
+    /// <seealso cref="IArbitrageCalculatorService"/>
     internal class ArbitrageCalculatorService : IArbitrageCalculatorService
     {
         /// <summary>

@@ -15,11 +15,23 @@ namespace ArbitrageFinder.Presentation.WebAPI.Dtos.Input.Bet
     public class CalculateBetByGameIdDto
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="CalculateBetByGameIdDto"/> class.
+        /// </summary>
+        public CalculateBetByGameIdDto()
+        {
+            this.Odds = new();
+        }
+
+        /// <summary>
         /// Gets or sets the game identifier.
         /// </summary>
-        /// <value>
-        /// The game identifier.
-        /// </value>
-        public Guid GameId { get; set; }
+        /// <value>The game identifier.</value>
+        public Guid GameId { get; init; }
+
+        /// <summary>
+        /// Gets the odds.
+        /// </summary>
+        /// <value>The odds.</value>
+        public List<CalculateBetOddDto> Odds { get; init; }
     }
 }

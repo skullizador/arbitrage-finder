@@ -6,7 +6,8 @@
 // OddType
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace ArbitrageFinder.Domain.AggregateModels.Game.Enum
+
+namespace ArbitrageFinder.Domain.AggregateModels.Bet.Enum
 {
     /// <summary>
     /// <see cref="OddType"/>

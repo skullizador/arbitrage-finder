@@ -1,25 +1,23 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GetGameByGameIdDto.cs" company="HumbleBets">
+// <copyright file="GetBetByGameIdDto.cs" company="HumbleBets">
 //     Copyright (c) HumbleBets. All rights reserved.
 // </copyright>
 // <summary>
-// GetGameByGameIdDto
+// GetBetByGameIdDto
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace ArbitrageFinder.Presentation.WebAPI.Dtos.Input.Game
+namespace ArbitrageFinder.Presentation.WebAPI.Dtos.Input.Bet
 {
     /// <summary>
-    /// <see cref="GetGameByGameIdDto"/>
+    /// <see cref="GetBetByGameIdDto"/>
     /// </summary>
-    public class GetGameByGameIdDto
+    public class GetBetByGameIdDto
     {
         /// <summary>
         /// Gets or sets the game identifier.
         /// </summary>
-        /// <value>
-        /// The game identifier.
-        /// </value>
+        /// <value>The game identifier.</value>
         public Guid GameId { get; set; }
     }
 }

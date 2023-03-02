@@ -13,7 +13,6 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
     using System.Threading;
     using System.Threading.Tasks;
     using ArbitrageFinder.Domain.AggregateModels.Bet;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
 
     /// <summary>
     /// <see cref="ICombinationService"/>
@@ -23,9 +22,9 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
         /// <summary>
         /// Calculates the combinations asynchronous.
         /// </summary>
-        /// <param name="game">The game.</param>
+        /// <param name="odds">The odds.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        Task<IEnumerable<Combination>> CalculateCombinationsAsync(Game game, CancellationToken cancellationToken);
+        Task<IEnumerable<Combination>> CalculateCombinationsAsync(List<Odd> odds, CancellationToken cancellationToken);
     }
 }

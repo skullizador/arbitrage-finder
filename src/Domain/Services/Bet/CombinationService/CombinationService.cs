@@ -14,18 +14,15 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
     using System.Threading;
     using System.Threading.Tasks;
     using ArbitrageFinder.Domain.AggregateModels.Bet;
-    using ArbitrageFinder.Domain.AggregateModels.Game;
+    using ArbitrageFinder.Domain.AggregateModels.Bet.Enum;
     using ArbitrageFinder.Domain.AggregateModels.Game.Builder.CombinationBuilder;
-    using ArbitrageFinder.Domain.AggregateModels.Game.Enum;
     using ArbitrageFinder.Domain.Services.Bet.ArbitrageCalculatorService;
     using ArbitrageFinder.Domain.Services.Bet.ProfitCalculatorService;
-    using BetOdd = AggregateModels.Bet.Odd;
-    using GameOdd = AggregateModels.Game.Odd;
 
     /// <summary>
     /// <see cref="CombinationService"/>
     /// </summary>
-    /// <seealso cref="ICombinationService" />
+    /// <seealso cref="ICombinationService"/>
     internal class CombinationService : ICombinationService
     {
         /// <summary>
@@ -62,20 +59,20 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
         /// <summary>
         /// Calculates the combinations asynchronous.
         /// </summary>
-        /// <param name="game">The game.</param>
+        /// <param name="odds">The odds.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        public async Task<IEnumerable<Combination>> CalculateCombinationsAsync(Game game, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Combination>> CalculateCombinationsAsync(List<Odd> odds, CancellationToken cancellationToken)
         {
-            List<GameOdd> teamAOdds = game.Odds
-                .Where(odd => odd.TeamId == game.TeamAId)
+            List<Odd> teamAOdds = odds
+                .Where(odd => odd.Type == OddType.V1)
                 .ToList();
 
-            List<GameOdd> teamBOdds = game.Odds
-                .Where(odd => odd.TeamId == game.TeamBId)
+            List<Odd> teamBOdds = odds
+                .Where(odd => odd.Type == OddType.V2)
                 .ToList();
 
-            List<GameOdd> drawOdds = game.Odds
+            List<Odd> drawOdds = odds
                 .Where(odd => odd.Type is OddType.X)
                 .ToList();
 
@@ -94,13 +91,13 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
         /// <param name="teamBOdds">The team b odds.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        private async Task<IEnumerable<Combination>> Calculate2WayBetCombinationsAsync(List<GameOdd> teamAOdds, List<GameOdd> teamBOdds, CancellationToken cancellationToken)
+        private async Task<IEnumerable<Combination>> Calculate2WayBetCombinationsAsync(List<Odd> teamAOdds, List<Odd> teamBOdds, CancellationToken cancellationToken)
         {
             List<Combination> combinations = new();
 
-            foreach (GameOdd teamAOdd in teamAOdds)
+            foreach (Odd teamAOdd in teamAOdds)
             {
-                foreach (GameOdd teamBOdd in teamBOdds)
+                foreach (Odd teamBOdd in teamBOdds)
                 {
                     decimal arbitragePercentage = await this.arbitrageCalculatorService.Calculate2WayBetArbitragePercentageAsync(teamAOdd, teamBOdd, cancellationToken);
 
@@ -124,15 +121,15 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
         /// <param name="drawOdds">The draw odds.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        private async Task<IEnumerable<Combination>> Calculate3WayBetCombinationsAsync(List<GameOdd> teamAOdds, List<GameOdd> teamBOdds, List<GameOdd> drawOdds, CancellationToken cancellationToken)
+        private async Task<IEnumerable<Combination>> Calculate3WayBetCombinationsAsync(List<Odd> teamAOdds, List<Odd> teamBOdds, List<Odd> drawOdds, CancellationToken cancellationToken)
         {
             List<Combination> combinations = new();
 
-            foreach (GameOdd teamAOdd in teamAOdds)
+            foreach (Odd teamAOdd in teamAOdds)
             {
-                foreach (GameOdd teamBOdd in teamBOdds)
+                foreach (Odd teamBOdd in teamBOdds)
                 {
-                    foreach (GameOdd drawOdd in drawOdds)
+                    foreach (Odd drawOdd in drawOdds)
                     {
                         decimal arbitragePercentage = await this.arbitrageCalculatorService.Calculate3WayBetArbitragePercentageAsync(teamAOdd, teamBOdd, drawOdd, cancellationToken);
 
@@ -157,14 +154,10 @@ namespace ArbitrageFinder.Domain.Services.Bet.CombinationService
         /// <param name="teamBOdd">The team b odd.</param>
         /// <param name="drawOdd">The draw odd.</param>
         /// <param name="profitMargin">The profit margin.</param>
-        private void CreateCombination(List<Combination> combinations, GameOdd teamAOdd, GameOdd teamBOdd, GameOdd drawOdd, decimal profitMargin)
+        private void CreateCombination(List<Combination> combinations, Odd teamAOdd, Odd teamBOdd, Odd drawOdd, decimal profitMargin)
         {
-            BetOdd teamABetOdd = new(teamAOdd.UUId, teamAOdd.BookmakerId);
-            BetOdd teamBBetOdd = new(teamBOdd.UUId, teamBOdd.BookmakerId);
-            BetOdd drawBetOdd = (drawOdd is null) ? null : new(drawOdd.UUId, drawOdd.BookmakerId);
-
             Combination combination = this.combinationBuilder
-                .NewCombination(teamABetOdd, drawBetOdd, teamBBetOdd, profitMargin)
+                .NewCombination(teamAOdd, drawOdd, teamBOdd, profitMargin)
                 .Build();
 
             combinations.Add(combination);
