@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>ArbitrageFinder.Domain</AssemblyName>
     <RootNamespace>ArbitrageFinder.Domain</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="11.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
