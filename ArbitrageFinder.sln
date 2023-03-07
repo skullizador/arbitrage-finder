@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8D7C77B5-41B5-4DE7-A4D0-8EF06D75CE4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{8D8D1932-3606-409F-B7DC-BBFF19E8B4DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{8D8D1932-3606-409F-B7DC-BBFF19E8B4DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{EB2477CE-4B77-4370-9045-9864FCD6907E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{EB2477CE-4B77-4370-9045-9864FCD6907E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8D8D1932-3606-409F-B7DC-BBFF19E8B4DC} = {8D8D1932-3606-409F-B7DC-BBFF19E8B4DC}
 	EndProjectSection
